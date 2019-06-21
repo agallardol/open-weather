@@ -23,7 +23,7 @@ The following libraries where installed using nugget:
 
 This solution is composed of 5 projects:
 
- - **OpenWeatherApp:** **WPF** app built using the **MVVM** pattern with simple and basics classes to support the pattern. In this app you can Start/Stop the windows service that access to the weather data. 
+ - **OpenWeatherApp:** **WPF** app built using the **MVVM** pattern with simple and basics classes to support the pattern. In this app you can Start/Stop the windows service that access to the weather data and **update and visualize** the latest weather data stored by the windows service. 
  - **OpenWeatherDataStore:** Simple **.NET library** to **persist** the weather **data** using **SQLite**.
  - **OpenWeatherMapApi**: Simple **.NET library** to **request** the weather **data** from the **OpenWeatherMapApi**. This library was buit auto generating code using [AutoRest](https://github.com/Azure/autorest) and doing just minimum changes.
  - **OpenWeatherService:** **Windows Service** that **access** to the weather data using **OpenWeatherMapApi project** and **store** it in a **SQLite database** using **OpenWeatherDataStore project**.
