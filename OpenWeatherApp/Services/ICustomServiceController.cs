@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace OpenWeatherApp.Services
 {
-    public interface IGetCurrentWeatherServiceController
+    public interface ICustomServiceController
     {
         bool CanBeStarted { get; }
         bool CanBeStopped { get; }
-
+        event EventHandler StatusChanged;
         void StartService();
-
         void StopService();
     }
 }

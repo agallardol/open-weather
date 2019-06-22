@@ -46,7 +46,7 @@ namespace OpenWeatherApp
 
             container.Bind<IOpenWeatherDataStoreClient>().To<OpenWeatherDataStoreClient>().InSingletonScope()
                 .WithConstructorArgument("dataStoreFilePath", dataStoreFilePath);
-            container.Bind<IGetCurrentWeatherServiceController>().To<GetCurrentWeatherServiceController>().InSingletonScope()
+            container.Bind<ICustomServiceController>().To<GetCurrentWeatherServiceController>().InSingletonScope()
                 .WithConstructorArgument("openWeatherMapApiBaseAddress", openWeatherMapApiBaseAddress)
                 .WithConstructorArgument("openWeatherMapApiAppId", openWeatherMapApiAppId)
                 .WithConstructorArgument("dataStoreFilePath", dataStoreFilePath)

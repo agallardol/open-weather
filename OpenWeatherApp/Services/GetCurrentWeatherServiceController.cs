@@ -9,19 +9,35 @@ using System.Timers;
 
 namespace OpenWeatherApp.Services
 {
-    public class GetCurrentWeatherServiceController : IGetCurrentWeatherServiceController
+    public class GetCurrentWeatherServiceController : ICustomServiceController
     {
         readonly ServiceController serviceController;
         readonly string[] args;
+        const int REFRESH_RATE = 500;
+        Timer refreshTimer;
+        ServiceControllerStatus lastStatus;
         public GetCurrentWeatherServiceController(string openWeatherMapApiBaseAddress, string openWeatherMapApiAppId, string dataStoreFilePath, string getCurrentWeatherServiceName)
         {
+            refreshTimer = new Timer(500);
+            refreshTimer.Elapsed += RefreshTimer_Elapsed;
+            refreshTimer.Start();
             args = new[] { openWeatherMapApiBaseAddress, openWeatherMapApiAppId, dataStoreFilePath };
             serviceController = new ServiceController(getCurrentWeatherServiceName);
+            lastStatus = serviceController.Status;
+        }
+
+        private void RefreshTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            serviceController.Refresh();
+            if(lastStatus != serviceController.Status)
+            {
+                lastStatus = serviceController.Status;
+                StatusChanged?.Invoke(this, new EventArgs());
+            }
         }
 
         public bool CanBeStarted {
             get {
-                serviceController.Refresh();
                 return serviceController.Status == ServiceControllerStatus.Stopped;
             }
         }
@@ -29,10 +45,11 @@ namespace OpenWeatherApp.Services
         public bool CanBeStopped {
             get
             {
-                serviceController.Refresh();
                 return serviceController.Status == ServiceControllerStatus.Running;
             }
         }
+
+        public event EventHandler StatusChanged;
 
         public void StartService()
         {
