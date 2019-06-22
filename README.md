@@ -61,3 +61,7 @@ The installer of the app just **"Right Click"** on the **"OpenWeatherInstaller"*
 At this point you will have the following files:
 
 ![Installer of the WPF app and the Windows Service](/images/Installer.png?raw=true "Installer of the WPF app and the Windows Service")
+
+## CC Attributions
+
+<a href="https://icon-icons.com/icon/cloud-forecast-rainbow-weather/99868" target="_blank">"App icon"</a> by <a href="http://www.atifarshad.com/" target="_blank">Atif Arshad</a>
