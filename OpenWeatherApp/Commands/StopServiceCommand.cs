@@ -1,0 +1,24 @@
+﻿using OpenWeatherApp.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows.Threading;
+
+namespace OpenWeatherApp.Commands
+{
+    public class StopServiceCommand : RelayCommand
+    {
+        public StopServiceCommand(ICustomServiceController customServiceController): base(o => customServiceController.StopService(), o => customServiceController.CanBeStopped)
+        {
+            customServiceController.StatusChanged += CustomServiceController_StatusChanged;
+        }
+
+        private void CustomServiceController_StatusChanged(object sender, EventArgs e)
+        {
+            OnCanExecuteChange();
+        }
+    }
+}

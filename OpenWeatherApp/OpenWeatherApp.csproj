@@ -135,10 +135,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Services\IGetCurrentWeatherServiceController.cs" />
+    <Compile Include="Commands\StopServiceCommand.cs" />
+    <Compile Include="Commands\StartServiceCommand.cs" />
+    <Compile Include="Services\ICustomServiceController.cs" />
     <Compile Include="Services\GetCurrentWeatherServiceController.cs" />
     <Compile Include="Models\MainWindowModel.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

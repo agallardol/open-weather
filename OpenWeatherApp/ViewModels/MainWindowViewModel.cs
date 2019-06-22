@@ -1,4 +1,5 @@
 ﻿
+using OpenWeatherApp.Commands;
 using OpenWeatherApp.Models;
 using OpenWeatherApp.Services;
 using OpenWeatherDataStore;
@@ -16,12 +17,12 @@ namespace OpenWeatherApp.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         MainWindowModel model = default;
-        readonly IGetCurrentWeatherServiceController getCurrentWeatherServiceController;
+        readonly ICustomServiceController getCurrentWeatherServiceController;
         readonly IOpenWeatherDataStoreClient openWeatherDataStoreClient;
 
-        public ICommand StartGetCurrentWeatherServiceCommand { get; }
-        public ICommand StopGetCurrentWeatherServiceCommand { get; }
-        public ICommand RefreshWeatherDataCommand { get; }
+        public RelayCommand StartGetCurrentWeatherServiceCommand { get; }
+        public RelayCommand StopGetCurrentWeatherServiceCommand { get; }
+        public RelayCommand RefreshWeatherDataCommand { get; }
 
         public MainWindowModel Model {
             get => model;
@@ -31,14 +32,14 @@ namespace OpenWeatherApp.ViewModels
             }
         }
 
-        public MainWindowViewModel(IGetCurrentWeatherServiceController getCurrentWeatherServiceController, IOpenWeatherDataStoreClient openWeatherDataStoreClient)
+        public MainWindowViewModel(ICustomServiceController getCurrentWeatherServiceController, IOpenWeatherDataStoreClient openWeatherDataStoreClient)
         {
             this.getCurrentWeatherServiceController = getCurrentWeatherServiceController;
             this.openWeatherDataStoreClient = openWeatherDataStoreClient;
-
-            StartGetCurrentWeatherServiceCommand = new RelayCommand(o => getCurrentWeatherServiceController.StartService(), o => getCurrentWeatherServiceController.CanBeStarted);
-            StopGetCurrentWeatherServiceCommand = new RelayCommand(o => getCurrentWeatherServiceController.StopService(), o => getCurrentWeatherServiceController.CanBeStopped);
+            StartGetCurrentWeatherServiceCommand = new StartServiceCommand(getCurrentWeatherServiceController);
+            StopGetCurrentWeatherServiceCommand = new StopServiceCommand(getCurrentWeatherServiceController);
             RefreshWeatherDataCommand = new RelayCommand(o => RefreshWeatherData(), o => true);
+
             RefreshWeatherData();
         }
 
